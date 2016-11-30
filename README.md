@@ -2,7 +2,8 @@
 ## Repositório com códigos e exemplos para execução de análises estatísticas ##
 
 1. Regras
-2. Requerimentos 
+2. Requerimentos
+3. Uso básico
 
 
 ### 1. Regras ###
@@ -17,3 +18,18 @@
 * instalar [git](https://git-scm.com)
 * dependendo do código que for usar: python, R, matlab
 * recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos
+
+### 3. Uso básico (= fazer uma cópia local)###
+referência simples para usar o git http://rogerdudler.github.io/git-guide/
+
+1. baixe a versão atual do repositório:
+
+        git pull origin master
+
+   Todas as alterações que você fizer serão somente realizadas na sua máquina.
+
+2. Se você quiser jogar suas alterações fora e baixar de novo:
+     
+     git fetch --all
+     git reset --hard origin/master
+
