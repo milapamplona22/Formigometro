@@ -2,10 +2,6 @@
 
 ### Repositório com códigos e exemplos para execução de análises estatísticas ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
 ### O quê é necessário? (requerimentos) ###
 
 * [git](https://git-scm.com)
