@@ -26,10 +26,9 @@ referência simples para usar o git http://rogerdudler.github.io/git-guide/
 
         git pull origin master
 
-   Todas as alterações que você fizer serão somente realizadas na sua máquina.
+   * Todas as alterações que você fizer serão somente realizadas na sua máquina.
 
 2. Se você quiser jogar suas alterações fora e baixar de novo:
      
      git fetch --all
      git reset --hard origin/master
-
