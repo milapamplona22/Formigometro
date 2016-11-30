@@ -13,5 +13,5 @@
 ### 2. O quê é necessário? (requerimentos) ###
 
 * instalar [git](https://git-scm.com)
-* dependendo do código que for usar, python, R, matlab, Octave, Julia
+* dependendo do código que for usar: python, R, matlab, Octave, Julia
 * recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos
