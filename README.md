@@ -7,7 +7,7 @@
 
 ### 1. Regras ###
 1. Manter o branch master sempre funcional
-2. Quando for alterar algo existente ou adicionar algo novo, faça isso num branch próprio. Ao certificar-se de que está funcionando e em versão final, para disponibilizar à todos dê merge com o branch master
+2. Quando for alterar algo existente ou adicionar algo novo, faça isso num branch próprio. Ao certificar-se de que este novo branch está funcionando e em versão final, só então dê merge com o branch master para disponibilizar á todos, e delete o branch que foi criado para o desenvolvimento
 
 
 ### 2. O quê é necessário? (requerimentos) ###
