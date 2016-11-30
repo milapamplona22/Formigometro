@@ -11,13 +11,15 @@
 2. Quando for **alterar** algo existente ou **adicionar** algo novo, faça isso num **branch próprio**. Ao certificar-se de que este novo branch está funcionando e em versão final, só então dê merge com o branch master para disponibilizar á todos, e delete o branch que foi criado para o desenvolvimento
 3. arquivos com **exemplos** de análises devem ser nomeados com 'exemplo_' no início
 4. colocar **referências** sobre sites, livros, papers, tanto sobre a explicação da análise quanto sobre o código
+5. se criar um exemplo em jupyter **notebook**, adicionar também o .html exportado
+
 
 
 ### 2. O quê é necessário? (requerimentos) ###
 
 * instalar [git](https://git-scm.com)
 * dependendo do código que for usar: python, R, matlab
-* recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos
+* recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos (.ipynb)
 
 ### 3. Uso básico (= fazer uma cópia local)###
 referência simples para usar o git http://rogerdudler.github.io/git-guide/
