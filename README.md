@@ -6,10 +6,10 @@
 
 
 ### 1. Regras ###
-1. Manter o branch master sempre funcional
-2. Quando for alterar algo existente ou adicionar algo novo, faça isso num branch próprio. Ao certificar-se de que este novo branch está funcionando e em versão final, só então dê merge com o branch master para disponibilizar á todos, e delete o branch que foi criado para o desenvolvimento
-3. arquivos com exemplos de análises devem ser nomeados com 'exemplo_' no início
-4. colocar referências sobre sites, livros, papers, tanto sobre a explicação da análise quanto sobre o código
+1. Manter o branch **master sempre funcional **
+2. Quando for **alterar** algo existente ou **adicionar** algo novo, faça isso num **branch próprio**. Ao certificar-se de que este novo branch está funcionando e em versão final, só então dê merge com o branch master para disponibilizar á todos, e delete o branch que foi criado para o desenvolvimento
+3. arquivos com **exemplos** de análises devem ser nomeados com 'exemplo_' no início
+4. colocar **referências** sobre sites, livros, papers, tanto sobre a explicação da análise quanto sobre o código
 
 
 ### 2. O quê é necessário? (requerimentos) ###
