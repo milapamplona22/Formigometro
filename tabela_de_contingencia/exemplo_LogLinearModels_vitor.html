@@ -174,6 +174,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Marcelo 30/11/2016</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Modelos-Log-Lineares-para-an&#225;lise-de-tabelas-de-conting&#234;ncia">Modelos Log Lineares para an&#225;lise de tabelas de conting&#234;ncia<a class="anchor-link" href="#Modelos-Log-Lineares-para-an&#225;lise-de-tabelas-de-conting&#234;ncia">&#182;</a></h1><h2 id="Exemplo:-experimento-do-Vitor">Exemplo: experimento do Vitor<a class="anchor-link" href="#Exemplo:-experimento-do-Vitor">&#182;</a></h2><p>No experimento, o Vitor tirava formigas de uma trilha e colova na trilha da sub colonia irma e contou quantas formigas iam para um lado ou outro da trilha (escolha) nas seguintes condições:</p>
 <ul>
 <li>quando ela transportava ou não (transporte)</li>
@@ -190,13 +200,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.-Dados">1. Dados<a class="anchor-link" href="#1.-Dados">&#182;</a></h3>
+<h2 id="1.Dados">1.Dados<a class="anchor-link" href="#1.Dados">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>observado  <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">41</span><span class="p">,</span> <span class="m">59</span><span class="p">,</span> <span class="m">75</span><span class="p">,</span> <span class="m">25</span><span class="p">,</span> <span class="m">28</span><span class="p">,</span> <span class="m">72</span><span class="p">,</span> <span class="m">69</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">68</span><span class="p">,</span> <span class="m">32</span><span class="p">,</span> <span class="m">18</span><span class="p">,</span> <span class="m">82</span><span class="p">,</span> <span class="m">63</span><span class="p">,</span> <span class="m">37</span><span class="p">,</span> <span class="m">31</span><span class="p">,</span> <span class="m">69</span><span class="p">)</span>
@@ -264,7 +274,7 @@ exp_data
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-An&#225;lise">2. An&#225;lise<a class="anchor-link" href="#2.-An&#225;lise">&#182;</a></h3>
+<h2 id="2.-An&#225;lise">2. An&#225;lise<a class="anchor-link" href="#2.-An&#225;lise">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -273,14 +283,15 @@ exp_data
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Análise segue a descrição do Zar (pág 505) de análise de tabelas de contigência de 3 dimensões. No entanto, neste caso temos quatro dimensões. Uma das possibilidades seria fazer como o Zar, utilisando análises de qui-quadradro. Outra possibilidade é usar as análises segundo modelos log-lineares, é exatamente a mesma coisa, e a interpretação é idêntica à do livro</p>
+<p>Análise segue a descrição do Zar [1] (pág 505) de análise de tabelas de contigência de 3 dimensões. No entanto, neste caso temos quatro dimensões. Uma das possibilidades seria fazer como o Zar, utilisando análises de qui-quadradro. Outra possibilidade é usar as análises segundo modelos log-lineares, é exatamente a mesma coisa, e a interpretação é idêntica à do livro.
+As fórmulas para testar modelos de independência mútua utilizadas foram obtidas em [2]</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span class="kn">library</span><span class="p">(</span>MASS<span class="p">)</span>    <span class="c1"># importa um pacote</span>
@@ -300,13 +311,13 @@ mytable <span class="o">&lt;-</span> xtabs<span class="p">(</span>observado <spa
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.1-Testar-independ&#234;ncia-m&#250;tua-entre-todas-as-v&#225;riaveis-independentes-(preditoras,-fatores)">2.1 Testar independ&#234;ncia m&#250;tua entre todas as v&#225;riaveis independentes (preditoras, fatores)<a class="anchor-link" href="#2.1-Testar-independ&#234;ncia-m&#250;tua-entre-todas-as-v&#225;riaveis-independentes-(preditoras,-fatores)">&#182;</a></h4>
+<h3 id="2.1-Testar-independ&#234;ncia-m&#250;tua-entre-todas-as-v&#225;riaveis-independentes-(preditoras,-fatores)">2.1 Testar independ&#234;ncia m&#250;tua entre todas as v&#225;riaveis independentes (preditoras, fatores)<a class="anchor-link" href="#2.1-Testar-independ&#234;ncia-m&#250;tua-entre-todas-as-v&#225;riaveis-independentes-(preditoras,-fatores)">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>loglm<span class="p">(</span><span class="o">~</span>orientacao <span class="o">+</span> iluminacao <span class="o">+</span> transporte <span class="o">+</span> escolha<span class="p">,</span> mytable<span class="p">)</span>
@@ -355,7 +366,7 @@ Pearson          136.9569 11        0</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.2-Independ&#234;ncias-m&#250;tuas-parciais">2.2 Independ&#234;ncias m&#250;tuas parciais<a class="anchor-link" href="#2.2-Independ&#234;ncias-m&#250;tuas-parciais">&#182;</a></h4>
+<h3 id="2.2-Independ&#234;ncias-m&#250;tuas-parciais">2.2 Independ&#234;ncias m&#250;tuas parciais<a class="anchor-link" href="#2.2-Independ&#234;ncias-m&#250;tuas-parciais">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -364,14 +375,13 @@ Pearson          136.9569 11        0</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2.2.1 Testar se <strong>orientacao</strong> é parcialmente independente do resto</p>
-
+<h4 id="2.2.1-Testar-se-orientacao-&#233;-parcialmente-independente-do-resto">2.2.1 Testar se <strong>orientacao</strong> &#233; parcialmente independente do resto<a class="anchor-link" href="#2.2.1-Testar-se-orientacao-&#233;-parcialmente-independente-do-resto">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>loglm<span class="p">(</span><span class="o">~</span>orientacao <span class="o">+</span> iluminacao <span class="o">+</span> transporte <span class="o">+</span> escolha <span class="o">+</span> iluminacao<span class="o">*</span>transporte<span class="o">*</span>escolha<span class="p">,</span> mytable<span class="p">)</span>
@@ -410,14 +420,13 @@ Pearson          133.5791  7        0</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2.2.2 Testar se <strong>iluminacao</strong> é parcialmente independente do resto</p>
-
+<h4 id="2.2.2-Testar-se-iluminacao-&#233;-parcialmente-independente-do-resto">2.2.2 Testar se <strong>iluminacao</strong> &#233; parcialmente independente do resto<a class="anchor-link" href="#2.2.2-Testar-se-iluminacao-&#233;-parcialmente-independente-do-resto">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>loglm<span class="p">(</span><span class="o">~</span>orientacao <span class="o">+</span> iluminacao <span class="o">+</span> transporte <span class="o">+</span> escolha <span class="o">+</span> orientacao<span class="o">*</span>transporte<span class="o">*</span>escolha<span class="p">,</span> mytable<span class="p">)</span>
@@ -456,14 +465,13 @@ Pearson          9.753552  7 0.2029749</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2.2.3 Testar se <strong>transporte</strong> é parcialmente independente do resto</p>
-
+<h4 id="2.2.3-Testar-se-transporte-&#233;-parcialmente-independente-do-resto">2.2.3 Testar se transporte &#233; parcialmente independente do resto<a class="anchor-link" href="#2.2.3-Testar-se-transporte-&#233;-parcialmente-independente-do-resto">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>loglm<span class="p">(</span><span class="o">~</span>orientacao <span class="o">+</span> iluminacao <span class="o">+</span> transporte <span class="o">+</span> escolha <span class="o">+</span> orientacao<span class="o">*</span>iluminacao<span class="o">*</span>escolha<span class="p">,</span> mytable<span class="p">)</span>
@@ -502,14 +510,13 @@ Pearson          128.9313  7        0</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2.2.4 Testar se <strong>escolha</strong> é  parcialmente independente do resto</p>
-
+<h4 id="2.2.4-Testar-se-escolha-&#233;-parcialmente-independente-do-resto">2.2.4 Testar se escolha &#233; parcialmente independente do resto<a class="anchor-link" href="#2.2.4-Testar-se-escolha-&#233;-parcialmente-independente-do-resto">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre>loglm<span class="p">(</span><span class="o">~</span>orientacao <span class="o">+</span> iluminacao <span class="o">+</span> transporte <span class="o">+</span> escolha <span class="o">+</span> orientacao<span class="o">*</span>iluminacao<span class="o">*</span>transporte<span class="p">,</span> mytable<span class="p">)</span>
@@ -543,18 +550,35 @@ Pearson          136.9569  7        0</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Refer&#234;ncias">3. Refer&#234;ncias<a class="anchor-link" href="#3.-Refer&#234;ncias">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>[1] Zar, Jerrold H. "Biostatistical analysis. 4th." New Jersey, USA (1999): 929.
+APA. Pag 505.</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>[2] <a href="http://www.statmethods.net/stats/frequencies.html">http://www.statmethods.net/stats/frequencies.html</a> - LogLinear Models - Mutual Independence</p>
 
+</div>
+</div>
 </div>
     </div>
   </div>
