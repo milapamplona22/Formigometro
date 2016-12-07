@@ -29,7 +29,7 @@ referência simples para usar o git http://rogerdudler.github.io/git-guide/
  * se for a primeira vez, você ainda precisa clonar (baixar) o repositório:
 ```
 #!git
-     git pull origin master
+     git clone https:\\endereço ali no canto superior direito dessa página
 ```
  * se você já tem o repositório, vá até ele e baixe a versão mais atual
 ```
