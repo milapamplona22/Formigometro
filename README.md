@@ -20,7 +20,7 @@
 
 * instalar [git](https://git-scm.com)
 * dependendo do código que for usar: python, R, Matlab (/Octave)
-* recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos (.ipynb)
+* recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos (.ipynb) (para ter Jupyter precisa de python)
 
 ### 3. Uso básico (= fazer uma cópia local)###
 referência simples para usar o git http://rogerdudler.github.io/git-guide/
