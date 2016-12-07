@@ -26,6 +26,12 @@
 referência simples para usar o git http://rogerdudler.github.io/git-guide/
 
 1. baixe a versão atual do repositório:
+ * se for a primeira vez, você ainda precisa clonar (baixar) o repositório:
+```
+#!git
+     git pull origin master
+```
+ * se você já tem o repositório, vá até ele e baixe a versão mais atual
 ```
 #!git
      git pull origin master
