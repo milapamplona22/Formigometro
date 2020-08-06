@@ -1,6 +1,6 @@
 # Needed SHELL since I'm using zsh
 SHELL := /bin/bash
-.PHONY: all build_all actual_build build_prep
+.PHONY: actual_build build_prep
 
 # Adaptado de
 # DATAMACHINES.IO
@@ -116,11 +116,11 @@ actual_build:
 	  --build-arg CTO_FROM=${CTO_FROM} \ 
 	  --build-arg CTO_OPENCV_VERSION=${CTO_OPENCV_VERSION} \ 
 	  --build-arg CTO_NUMPROC=$(CTO_NUMPROC) \ 
-	  --build-arg CTO_CUDA_APT=\"${CTO_CUDA_APT}\" \ 
+	  --build-arg CTO_CUDA_APT="${CTO_CUDA_APT}" \ 
 	  --build-arg CTO_CUDA_BUILD="${CTO_CUDA_BUILD}" \ 
-	  --build-arg CTO_DNN_ARCH=\"${CTO_DNN_ARCH}\" \ 
-	  --tag=\"labcog/${CTO_NAME}:${CTO_TAG}\" \ 
-	  . | tee build_${CTO_NAME}-${CTO_TAG}.log.temp; exit \"$${PIPESTATUS[0]}\" 
+	  --build-arg CTO_DNN_ARCH="${CTO_DNN_ARCH}" \ 
+	  --tag="labcog/${CTO_NAME}:${CTO_TAG}" \ 
+	  . | tee build_${CTO_NAME}-${CTO_TAG}.log.temp; exit "$${PIPESTATUS[0]}" 
 	@mv build_${CTO_NAME}-${CTO_TAG}.log.temp ${CTO_NAME}-${CTO_TAG}.log
 	@docker run --rm labcog/${CTO_NAME}:${CTO_TAG} opencv_version -v >> ${CTO_NAME}-${CTO_TAG}.txt
 	@docker run --rm labcog/${CTO_NAME}:${CTO_TAG} /tmp/tf_info.sh > ${CTO_NAME}-${CTO_TAG}.txt
