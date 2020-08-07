@@ -111,15 +111,15 @@ build_prep:
 actual_build:
 	@echo "Pressione Ctl+c em até 10 seconds para cancelar"
 	@echo "  CTO_FROM               : ${CTO_FROM}"
-	@for i in 10 9 8 7 6 5 4 3 2 1; do echo -n "$$i "; sleep 1; done; echo ""
-	docker build \ 
-	  --build-arg CTO_FROM=${CTO_FROM} \ 
-	  --build-arg CTO_OPENCV_VERSION=${CTO_OPENCV_VERSION} \ 
-	  --build-arg CTO_NUMPROC=$(CTO_NUMPROC) \ 
-	  --build-arg CTO_CUDA_APT="${CTO_CUDA_APT}" \ 
-	  --build-arg CTO_CUDA_BUILD="${CTO_CUDA_BUILD}" \ 
-	  --build-arg CTO_DNN_ARCH="${CTO_DNN_ARCH}" \ 
-	  --tag="labcog/${CTO_NAME}:${CTO_TAG}" \ 
+	#@for i in 10 9 8 7 6 5 4 3 2 1; do echo -n "$$i "; sleep 1; done; echo ""
+	docker build \
+	  --build-arg CTO_FROM=${CTO_FROM} \
+	  --build-arg CTO_OPENCV_VERSION=${CTO_OPENCV_VERSION} \
+	  --build-arg CTO_NUMPROC=$(CTO_NUMPROC) \
+	  --build-arg CTO_CUDA_APT="${CTO_CUDA_APT}" \
+	  --build-arg CTO_CUDA_BUILD="${CTO_CUDA_BUILD}" \
+	  --build-arg CTO_DNN_ARCH="${CTO_DNN_ARCH}" \
+	  --tag="labcog/${CTO_NAME}:${CTO_TAG}" \
 	  . | tee build_${CTO_NAME}-${CTO_TAG}.log.temp; exit "$${PIPESTATUS[0]}" 
 	@mv build_${CTO_NAME}-${CTO_TAG}.log.temp ${CTO_NAME}-${CTO_TAG}.log
 	@docker run --rm labcog/${CTO_NAME}:${CTO_TAG} opencv_version -v >> ${CTO_NAME}-${CTO_TAG}.txt
