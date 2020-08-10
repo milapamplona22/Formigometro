@@ -21,6 +21,7 @@ CTO_NUMPROC := $(shell nproc --all)
 # https://docs.nvidia.com/deploy/cuda-compatibility/index.html#binary-compatibility__table-toolkit-driver
 STABLE_CUDA9=9.2
 STABLE_CUDA10=10.2
+STABLE_CUDA101=10.1
 # CUDNN needs 5.3 at minimum, extending list from https://en.wikipedia.org/wiki/CUDA#GPUs_supported 
 # Skipping Tegra, Jetson, ... from this list
 # Keeping Pascal and above
@@ -33,7 +34,8 @@ STABLE_OPENCV4=4.3.0
 
 # According to https://github.com/tensorflow/tensorflow/blob/master/RELEASE.md
 STABLE_TF1=1.15.3
-STABLE_TF2=2.2.0
+STABLE_TF2=2.2.0,
+STABLE_TF21=2.1.0
 
 # Information for build
 
@@ -46,6 +48,7 @@ CTO_BUILDALL+=cuda_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF1}_${STABLE_OPE
 CTO_BUILDALL+=cuda_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF1}_${STABLE_OPENCV4}
 CTO_BUILDALL+=cuda_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF2}_${STABLE_OPENCV3}
 CTO_BUILDALL+=cuda_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF2}_${STABLE_OPENCV4}
+CTO_BUILDALL+=cuda_tensorflow_opencv-${STABLE_CUDA101}_${STABLE_TF21}_${STABLE_OPENCV4}
 
 ##### CuDNN _ Tensorflow _ OpenCV
 DTO_BUILDALL =cudnn_tensorflow_opencv-${STABLE_CUDA9}_${STABLE_TF1}_${STABLE_OPENCV3}
@@ -56,7 +59,7 @@ DTO_BUILDALL+=cudnn_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF1}_${STABLE_OP
 DTO_BUILDALL+=cudnn_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF1}_${STABLE_OPENCV4}
 DTO_BUILDALL+=cudnn_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF2}_${STABLE_OPENCV3}
 DTO_BUILDALL+=cudnn_tensorflow_opencv-${STABLE_CUDA10}_${STABLE_TF2}_${STABLE_OPENCV4}
-
+DTO_BUILDALL+=cudnn_tensorflow_opencv-${STABLE_CUDA101}_${STABLE_TF21}_${STABLE_OPENCV4}
 
 ## By default, provide the list of build targets
 all:
@@ -111,7 +114,7 @@ build_prep:
 actual_build:
 	@echo "Pressione Ctl+c em até 10 seconds para cancelar"
 	@echo "  CTO_FROM               : ${CTO_FROM}"
-	#@for i in 10 9 8 7 6 5 4 3 2 1; do echo -n "$$i "; sleep 1; done; echo ""
+	@for i in 10 9 8 7 6 5 4 3 2 1; do echo -n "$$i "; sleep 1; done; echo ""
 	docker build \
 	  --build-arg CTO_FROM=${CTO_FROM} \
 	  --build-arg CTO_OPENCV_VERSION=${CTO_OPENCV_VERSION} \
