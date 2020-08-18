@@ -239,7 +239,7 @@ void RRANSAC::RconstantVelocity(cv::Mat * T, cv::Mat * Z,
     //   Update the model lifetime counter
     //   Predict model states and covariance using Kalman filter prediction equations
     for (int i = 0; i < (int)models.size(); i++) {
-        if (models[i].T != -1) {
+        if (models[i].T != -1 && !models[i].CS.empty()) {
             cv::Mat viableInliers = models[i].CS - left;
             models[i].CS = logic_isBigger(viableInliers, (float)-1);
             int numInliers = models[i].CS.cols; 
