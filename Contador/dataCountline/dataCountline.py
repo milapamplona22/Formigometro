@@ -72,8 +72,8 @@ if __name__ == '__main__':
         cline.update([trk['position'][0], trk['position'][-1]])
 
     total = cline.getTotal()
-    print "  1:", total[0]
-    print " -1:", total[1]  
+    print("  1:", total[0])
+    print(" -1:", total[1])
 
     if (args.show):
         img = np.ones((data['size'][1], data['size'][0], 3), np.uint8) * 255
