@@ -4,7 +4,7 @@ project("dataRRANSAC")
 set(${PROJECT_NAME}_MAJOR 1)
 set(${PROJECT_NAME}_MINOR 0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CSS_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CSS_FLAGS} -std=c++17")
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -pedantic-errors -Wall -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")

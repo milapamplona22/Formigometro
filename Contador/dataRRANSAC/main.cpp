@@ -1,6 +1,7 @@
 #include <iostream>
 #include "opencv2/opencv.hpp"
 #include <array>
+#include <numeric> //std::iota
 #include "rransacFrameN.hpp"
 // ../imfw
 #include "argParse.hpp"
@@ -22,6 +23,7 @@ struct Options
 {
     string infs;
     string outfs;
+    string outfwfs; bool has_framewiseyml;
     string displayVid; bool has_video;
     // RRANSAC params
     int M, Nw, ell, tau_T, tauR;
@@ -31,8 +33,9 @@ struct Options
 // ---------------------------- Options
 void menu(char * name) {
     printf ("  %s -data <data yml> -out <tracks yml> [RRANSAC params]\n\n"
-            "  -data  \t name of yml file containing centroids and frames\n"
-            "  -out   \t output yml file, will have tracks positions and frames\n"
+            "  -data   \t name of yml file containing centroids and frames\n"
+            "  -out    \t output yml file, will have tracks positions and frames\n"
+            "  -outfw  \t framewise output yml file, will have tracks positions and frames\n"
             "  -display\t (optional) video file to plot over\n"
             "\n  RRANSAC params: (must have)\n"
             "  -M      \t (int) Number of stored models\n"
@@ -67,7 +70,17 @@ vector<Track> getRRANSACendedTracks(RRANSAC &rransac);
 // ---------------- Write to output yml
 void writeParameters(FileStorage &fs, RRANSAC &rransac, Options &opt);
 void writeTrack2yml(Track & track, FileStorage &fs);
-
+vector<tuple<int, vector<int>, vector<array<float, 2> > > >
+    tracksFramewise(vector<Track> & tracks);
+template<typename T>
+void reorder(std::vector<T>& vec, std::vector<size_t> order);
+void tracksFramewise2(vector<Track> & tracks, vector<int> & frames, vector<vector<int> > & ids,
+    vector<vector<array<float, 2> > > & positions);
+void writeTrack2ymlFramewise(
+    vector<tuple<int, vector<int>, vector<array<float, 2> > > > & tracksFw,
+    FileStorage &fs);
+void writeTrack2ymlFramewise2(vector<int> & frames, vector<vector<int> > & ids,
+    vector<vector<array<float, 2> > > & positions, FileStorage &fs);
 
 // --------- display results over video
 void display(cv::Mat &frame, RRANSAC &rransac, std::vector<Point> &centroids);
@@ -91,7 +104,7 @@ int main(int argc, char ** argv)
         return 0;
     }
     //printParameters(rransac, opt);
-    
+
     // Open input file
     FileStorage fs(opt.infs, FileStorage::READ);
     Size size = readSize(fs["size"]); // Read size (width, height)
@@ -106,7 +119,14 @@ int main(int argc, char ** argv)
     writeParameters(outfs, rransac, opt); // write rransac parameters used
     outfs << "tracks" << "["; // open tracks section to write to
 
-    
+    FileStorage outfwfs;
+    if (opt.has_framewiseyml){
+        outfwfs = FileStorage(opt.outfwfs, FileStorage::WRITE);
+        outfwfs << "input" << opt.infs;
+        outfwfs << "size" << size;
+        writeParameters(outfwfs, rransac, opt); // write rransac parameters used
+    }
+
     // if display over video
     Video video;
     Mat frame(size, CV_8UC3);
@@ -116,6 +136,7 @@ int main(int argc, char ** argv)
 
     int totalTracks = 0;
     int frameN = -1;
+    vector<Track> alltracks;
     for (int i = 0; it != it_end; ++it, i++)
     {
         frameN = (int)(*it)["frame"]; // read frame n
@@ -136,6 +157,9 @@ int main(int argc, char ** argv)
             totalTracks++;
         }
         
+        if (opt.has_framewiseyml)
+            alltracks.insert(alltracks.end(), tracks.begin(), tracks.end());
+        
         // if -display
         if (opt.has_video)
         {
@@ -148,6 +172,17 @@ int main(int argc, char ** argv)
         }
     }
     
+    if (opt.has_framewiseyml) {
+        outfwfs << "tracks" << (int)alltracks.size();
+        vector<int> frames;
+        vector<vector<int> > ids;
+        vector<vector<array<float, 2> > > positions;
+        tracksFramewise2(alltracks, frames, ids, positions);
+        writeTrack2ymlFramewise2(frames, ids, positions, outfwfs);
+        //auto fwt = tracksFramewise(alltracks);
+        //writeTrack2ymlFramewise(fwt, outfwfs);
+    }
+
     // close in and out FileStorages
     fs.release();
     outfs << "]"; // close tracks[:
@@ -166,7 +201,12 @@ bool parseOptions(Options &opt, int argc, char ** argv)
 {
     bool complete = true;
     if (!parseArg(argc, argv, "-data", opt.infs)){ printf ("option -data missing\n"); complete = false; }
-    if (!parseArg(argc, argv, "-out", opt.outfs)){ printf ("option -out missing\n"); complete = false; }
+    bool out = parseArg(argc, argv, "-out", opt.outfs);
+    opt.has_framewiseyml = parseArg(argc, argv, "-outfw", opt.outfwfs);
+    if (!out && !opt.has_framewiseyml) {
+        complete = false;
+        printf("option -out (or -outfw) missing. There has to be one of these output options\n");
+    }
     opt.has_video = parseArg(argc, argv, "-display", opt.displayVid);
     return complete;
 }
@@ -257,7 +297,7 @@ vector<Track> getRRANSACendedTracks(RRANSAC &rransac)
             available[t].position[r][1] = traceptr[1]; // y
         }
         // o último dado fica em xhat, não vai para trace
-        // r já recebeu o último ++, não precisa de +1
+        // r já recebeu o último ++, não precisafw de +1
         available[t].position[r][0] =  rransac.tracks[t].xhat.at<float>(0, 0); // x
         available[t].position[r][1] =  rransac.tracks[t].xhat.at<float>(1, 0); // y
     }
@@ -266,7 +306,7 @@ vector<Track> getRRANSACendedTracks(RRANSAC &rransac)
 
 
 
-// ---------------- Write to output yml
+// ---------------- fwWrfwite to output yml
 void writeParameters(FileStorage &fs, RRANSAC &rransac, Options &opt)
 {
     fs << "M" << rransac.M;
@@ -311,6 +351,138 @@ void writeTrack2yml(Track & track, FileStorage &fs)
     fs << "}";
 }
 
+template<typename T>
+void reorder(std::vector<T>& vec, std::vector<size_t> order)
+{
+    // apply order in vec
+    for( size_t iv = 0; iv < vec.size() - 1; ++iv ){
+            if (order[iv] == iv)
+                continue;
+            size_t io;
+            for(io = iv + 1; io < order.size(); ++io){
+                if (order[io] == iv)
+                    break;
+            }
+            std::swap( vec[iv], vec[order[iv]] );
+            std::swap( order[iv], order[io] );
+    }
+}
+
+void tracksFramewise2(vector<Track> & tracks, vector<int> & frames,
+    vector<vector<int> > & ids, vector<vector<array<float, 2> > > & positions)
+{
+    // vector of  <frame: track ids, respectivefw tracks pofwsitions>
+    vector<int>::iterator idx;
+    for (size_t t = 0; t < tracks.size(); t++){
+        for (size_t f = 0; f < tracks[t].frames.size(); f++){
+            int fnum = tracks[t].frames[f];
+            idx = std::find_if(frames.begin(), frames.end(),
+                [&fnum](const int f) {
+                           return f == fnum;
+            });
+            int i = idx - frames.begin();
+            if (idx == frames.end()){
+                frames.push_back(fnum);
+                ids.push_back(vector<int>({(int)t}));
+                positions.push_back(vector<array<float, 2> >({tracks[t].position[f]}));
+            }
+            else {
+                ids[i].push_back((int)t);
+                positions[i].push_back(tracks[t].position[f]);
+            }
+        }
+    }
+    // reordenar vetores de acordo com frames
+    std::vector<size_t> fids(frames.size());
+    std::iota(fids.begin(), fids.end(), 0);
+    std::sort(fids.begin(), fids.end(),
+        [&frames](int A, int B) -> bool { return frames[A] < frames[B]; });
+    reorder(frames, fids);
+    reorder(ids, fids);
+    reorder(positions, fids);
+}
+
+void writeTrack2ymlFramewise2( vector<int> & frames, vector<vector<int> > & ids,
+    vector<vector<array<float, 2> > > & positions, FileStorage &fs)
+{
+    fs << "frames" << "[:"; // open tracks section to write to
+    for (size_t i = 0; i < frames.size(); i++)
+        fs << frames[i];
+    fs << "]";
+    fs << "ids" << "[:"; // open tracks section to write to
+    for (size_t i = 0; i < ids.size(); i++) {
+        fs << "[:";
+        for (size_t j = 0; j < ids[i].size(); j++)
+            fs << ids[i][j];
+        fs << "]";
+    }
+    fs << "]";
+    fs << "positions" << "[:";
+    for (size_t i = 0; i < positions.size(); i++) {
+        fs << "[:";
+        for (size_t j = 0; j < positions[i].size(); j++)
+            fs << "[:" << positions[i][j][0] << positions[i][j][1] << "]";
+        fs << "]";
+    }
+    fs << "]";
+
+}
+
+
+vector<tuple<int, vector<int>, vector<array<float, 2> > > >
+    tracksFramewise(vector<Track> & tracks)
+{
+    // vector of  <frame: track ids, respectivefw tracks pofwsitions>
+    vector<tuple<int, vector<int>, vector<array<float, 2> > > > data;
+    vector<tuple<int, vector<int>, vector<array<float, 2> > > >::iterator idx;
+    for (int t = 0; t < (int)tracks.size(); t++){
+        for (int f = 0; f < (int)tracks[t].frames.size(); f++){
+            int fnum = tracks[t].frames[f];
+            idx = std::find_if(data.begin(), data.end(), 
+                [&fnum](const tuple<int, vector<int>, vector<array<float, 2> > > & t) {
+                           return std::get<0>(t) == fnum;
+            });
+            if (idx == data.end())
+                data.push_back(make_tuple(
+                    fnum,
+                    vector<int>({t}),
+                    vector<array<float, 2> >({tracks[t].position[f]})
+                    ));
+            else {
+                std::get<1>(*idx).push_back(t);
+                std::get<2>(*idx).push_back(tracks[t].position[f]);
+            }
+        }
+    }
+    std::sort(data.begin(), data.end(),
+        [](const tuple<int, vector<int>, vector<array<float, 2> > > & t1,
+            const tuple<int, vector<int>, vector<array<float, 2> > > & t2) {
+                           return std::get<0>(t1) < std::get<0>(t2);
+            });
+
+    return data;
+}
+
+void writeTrack2ymlFramewise(
+    vector<tuple<int, vector<int>, vector<array<float, 2> > > > & tracksFw,
+    FileStorage &fs)
+{
+    fs << "frames" << "["; // open tracks section to write to
+    for (size_t i = 0; i < tracksFw.size(); i++) {
+        fs << "{:";
+        fs << "frame" << std::get<0>(tracksFw[i]);
+        fs << "id" << "[:";
+        for (size_t j = 0; j < std::get<1>(tracksFw[i]).size(); j++)
+            fs << std::get<1>(tracksFw[i])[j];
+        fs << "]";
+        fs << "position" << "[:";
+        for (size_t j = 0; j < std::get<2>(tracksFw[i]).size(); j++)
+            fs << "[:" << std::get<2>(tracksFw[i])[j][0] << std::get<2>(tracksFw[i])[j][1] << "]";
+        fs << "]";
+        fs<< "}";
+    }
+    fs << "]"; // close frames
+}
 
 
 

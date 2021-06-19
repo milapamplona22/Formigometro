@@ -1,3 +1,10 @@
+19.06.2021
+
+Acho que a countline é complicada demais para o caso. Analisar em as trajetórias, offline, 1 a 1 e checar em que momentos y > ycountline e y < ycountline seria mais prático e daria um output mais interpretável.
+É bastante simples, poderia fazer do zero
+
+---
+
 10/2018
 ## Glossário:
 - countline: conjunto de segmentos

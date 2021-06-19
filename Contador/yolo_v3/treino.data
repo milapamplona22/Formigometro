@@ -1,6 +1,0 @@
-classes= 1
-train  = /home/Documents/Mila/train/todosdarknet_train.txt
-valid  = /home/Documents/Mila/test/todosdarknet_test.txt
-names = /home/Documents/Mila/mila.names
-backup = /home/Documents/Mila/modelos_backup
-
