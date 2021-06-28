@@ -30,6 +30,10 @@
 *.__pycache__
 *.egg-info
 .ipynb_checkpoints
+# venv
+env
+venv
+envLabCog
 
 # C++
 build/
