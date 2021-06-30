@@ -45,7 +45,8 @@ if __name__ == '__main__':
         inputfile, params = fp
         # os nomes não podem tem espaço no endereço
         ytrue = params.pop('ytrue')
-        rransacOutfw = outfilename(os.path.basename(inputfile), '_rransacfw.yml')
+        #rransacOutfw = outfilename(os.path.basename(inputfile), '_rransacfw.yml')
+        rransacOutfw = os.path.join("/dev/shm", outfilename(os.path.basename(inputfile), '_rransacfw.yml'))
         params["outfw"] = rransacOutfw
         rransacOut = os.path.join(os.getcwd(), outfilename(os.path.basename(inputfile)))
         t0 = time.perf_counter()

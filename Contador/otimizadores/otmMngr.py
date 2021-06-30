@@ -112,7 +112,8 @@ if __name__ == '__main__':
     def myTask(fp):
         inputfile, params = fp
         ytrue = params.pop('ytrue')
-        rransacOutfw = os.path.join(os.getcwd(), outfilename(os.path.basename(inputfile), '_rransacfw.yml'))
+        #rransacOutfw = os.path.join(os.getcwd(), outfilename(os.path.basename(inputfile), '_rransacfw.yml'))
+        rransacOutfw = os.path.join("/dev/shm/", outfilename(os.path.basename(inputfile), '_rransacfw.yml'))
         params["outfw"] = rransacOutfw
         rransacOut = os.path.join(os.getcwd(), outfilename(os.path.basename(inputfile)))
         # no teste o output já existe
