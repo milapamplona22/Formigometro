@@ -1,0 +1,18 @@
+# dataCountline
+numpy
+pyaml
+
+## dataRRANSAC
+opencv-python
+matplotlib
+# pyaml
+# numpy
+
+# yolo
+# v5: requirements.txt do repo do ultralytics/yolov5
+# v3: opencv compilado com gpu e módulo dnn linkado
+# pandas
+# otimizadores
+bayesian-optimization
+motmetrics
+scipy

@@ -1,0 +1,48 @@
+# dados
+*.yml
+*.csv
+*.npy
+*.pkl
+*.xlsx
+*.hdf5
+
+# pesos de modelos
+*.pt
+*.h5
+*.weights
+
+# documentos
+*.pdf
+
+# imagens
+*.png
+*.jpg
+*.jpeg
+
+# videos
+*.mp4
+*.avi
+*.mkv
+*.mpg
+
+# python
+*.pyc
+*.__pycache__
+*.egg-info
+.ipynb_checkpoints
+# venv
+env
+venv
+envLabCog
+
+# C++
+build/
+CMakeFiles/
+*.so
+*.a
+*.a
+*.o
+*.lib
+
+# IDEs
+.vscode
