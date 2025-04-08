@@ -1,4 +1,4 @@
-# dados
+# data
 *.yml
 *.csv
 *.npy
@@ -6,15 +6,15 @@
 *.xlsx
 *.hdf5
 
-# pesos de modelos
+# model weights
 *.pt
 *.h5
 *.weights
 
-# documentos
+# documents
 *.pdf
 
-# imagens
+# images
 *.png
 *.jpg
 *.jpeg
