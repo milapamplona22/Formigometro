@@ -1,22 +1,21 @@
-ultima atualização 19.06.2021
-# Otimizadores
-Otimização de processos. Atualmente usa o bayesian optimization. Paraleliza a execução entre as amostras sob um mesmo conjunto de parâmetros.
+Last update: 19.06.2021
+# Optimizers
+Process optimization. Currently uses Bayesian optimization. Parallelizes execution between samples under the same set of parameters.
 
 
-- input = tabela .csv :
-    +   1a coluna: vídeo, ou input do comando a ser executado
-    +   2a coluna: respectivo dado de rótulo (ground truth)
+- input = .csv table:
+    +   1st column: video, or input of the command to be executed
+    +   2nd column: respective label data (ground truth)
 
-No caso atual, pareamos a saída do detector (../yolo/yoloV5Detect.py) e anotação manual do cvat (.xml) de cada vídeo, e como parâmetros a serem otimizados os parâmetros do rransac. 
+In the current case, we pair the output of the detector (../yolo/yoloV5Detect.py) and manual annotation from CVAT (.xml) of each video, and as parameters to be optimized, the RRANSAC parameters.
 
-A especialização da task, na verdade, deveria ser realizada fora da pasta do otimizador, como uma especialização para cada caso. No entanto, como modelo de exemplo será mantido o caso atual como exemplo (task.py)
+The specialization of the task should actually be performed outside the optimizer folder, as a specialization for each case. However, as an example model, the current case will be kept as an example (task.py).
 
 *otmMngr.py*
-o otimizador a ser utilizado. 
+The optimizer to be used.
 
 *runTasks.py*
-executa um programa como chamado pela linha de comando, com a possibilidade de se estabelecer um timeout e de se submeter a paralizações
-
+Executes a program as called from the command line, with the possibility of setting a timeout and being subject to interruptions.
 
 *MOTmetrics.py*
-usa o pacote MOTmetrics do python para cálculo de erros de tracking
+Uses the MOTmetrics Python package to calculate tracking errors.
