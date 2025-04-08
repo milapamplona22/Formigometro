@@ -1,55 +1,55 @@
 19.06.2021
 
-Acho que a countline é complicada demais para o caso. Analisar em as trajetórias, offline, 1 a 1 e checar em que momentos y > ycountline e y < ycountline seria mais prático e daria um output mais interpretável.
-É bastante simples, poderia fazer do zero
+I think the countline is too complicated for this case. Analyzing the trajectories offline, one by one, and checking at which moments y > ycountline and y < ycountline would be more practical and provide a more interpretable output.
+It is quite simple, it could be done from scratch.
 
 ---
 
 10/2018
-## Glossário:
-- countline: conjunto de segmentos
-- segmento: unidade (trecho) da countline
-- pontos limite: (p1,p2) pontos que definem um segmento
-- ponto externo: (q1,q2) pontos que serão dados para a countline ver se houve cruzamento ou não
-- trajetória: sequência sucessiva de pontos externos
+## Glossary:
+- countline: set of segments
+- segment: unit (section) of the countline
+- limit points: (p1,p2) points that define a segment
+- external point: (q1,q2) points that will be given to the countline to check whether there was a crossing or not
+- trajectory: successive sequence of external points
 
 ---
 
-## Uso:
+## Usage:
 >```
 Countline cline({cv::Point(x1,y1), cv::Point(x2,y2), ...})
 Countline cline({x1,y1,x2,y2,...}
-// os segmentos serão: p1->p2, p2->p3, ...
-// contagem a cada par de pontos sucessivos
-cline.update(vector<cv::Point>trajetoria)
-// contagem desconsiderando u-turn
-cline.update({trajetoria[0], trajetoria[-1]}) // (-1: último elemento)
+// the segments will be: p1->p2, p2->p3, ...
+// counting at each pair of successive points
+cline.update(vector<cv::Point>trajectory)
+// counting disregarding u-turns
+cline.update({trajectory[0], trajectory[-1]}) // (-1: last element)
 ```
 
-O testeCountline.cpp permite que se desenhe com o mouse uma trajetória sobre uma countline e, apertando 'c', ele conta e imprime o resultado.
+The testCountline.cpp allows drawing a trajectory with the mouse over a countline and, by pressing 'c', it counts and prints the result.
 
 ---
 
 ## To Do:
-1. Inserir int Countline::n (quantidade de segmentos da countline)
+1. Insert int Countline::n (number of segments in the countline)
 
 
-## Problemas:
-### 1. Quando um ponto externo cai sobre a reta
-[Atualmente Conta]. Quando uma trajetória tem um ponto que cai justamente sobre um segmento, por exemplo:
-> segmento s = [x1=0, y1=120, x2=320, y2=120]
-> 
-> trajetória t = [(100,100), (100,120), (100,130)]
+## Issues:
+### 1. When an external point falls on the line
+[Currently Counts]. When a trajectory has a point that falls exactly on a segment, for example:
+> segment s = [x1=0, y1=120, x2=320, y2=120]
+>
+> trajectory t = [(100,100), (100,120), (100,130)]
 
-Se a trajetória for analisada de dois em dois pontos sucessivos, a trajetória cruzará a reta duas vezes: tanto no trecho [(100,100),(100,120)] quanto no trecho seguinte [(100,120), (100,130)], pois o ponto (100,120) cai justamente sobre o segmento da countline.
+If the trajectory is analyzed in pairs of successive points, the trajectory will cross the line twice: both in the segment [(100,100),(100,120)] and in the following segment [(100,120), (100,130)], since the point (100,120) falls exactly on the countline segment.
 
-Não contar quando o ponto externo cai sobre a reta não resolve porque, no mesmo caso, ele não produziria nenhuma contagem.
+Not counting when the external point falls on the line does not solve the issue because, in the same case, it would not produce any count.
 
-Passando-se para a countline somente o primeiro e o último ponto de uma trajetória - método que também resolve contagem de meias voltas - virtualmente resolve a questão (a não ser que o primeiro ou último ponto caia sobre o segmento, mas a probabilidade é menor dado que a countline geralmente é mais central).
+Passing only the first and last point of a trajectory to the countline - a method that also resolves half-turn counts - virtually solves the issue (unless the first or last point falls on the segment, but the probability is lower since the countline is usually more central).
 
-### 2. Linha 90o 180o
-Quando tem uma linha (segmento) reta de ângulos mútiplos de 90o - em que x1==x2 ou y1==y2 - todos os pontos do segmento (inclusive os inetrmediários entre os pontos limite) estão sobre números inteiros. Isso facilita que pontos externos possam cair sobre a countline. Iserir uma inclinação na reta (ex: y1=120, y2=121) faz com que os pontos intermediários do segmento sejam floats e, portanto, fica mais difícil de um ponto externo cair sobre a countline.
+### 2. 90° and 180° Lines
+When there is a straight line (segment) at multiples of 90° angles - where x1==x2 or y1==y2 - all points on the segment (including those between the limit points) are on integer values. This makes it easier for external points to fall on the countline. Adding a slight tilt to the line (e.g., y1=120, y2=121) makes the intermediate points of the segment floats, thus making it harder for an external point to fall on the countline.
 
 # Log:
-- 10/2018 - criação
-- 10/2018 - inserido void Countline::getTotals()
+- 10/2018 - creation
+- 10/2018 - added void Countline::getTotals()
