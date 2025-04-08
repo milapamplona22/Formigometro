@@ -1,11 +1,10 @@
 # Docker
 
-Atualmente, o opencv para uso com gpu (módulo DNN) precisa ser compilado manualmente. Para tal, é bom usar o Docker. Optamos por usar o módulo dnn para rodar inferência da yolo para poder eliminar a dependência do darknet dentro desse docker. No entanto, a yolov5 passou a utilizar o pytorch ao invés de darknet. Eu tentei exportar uma yolov5 para ONNX para usar no opencv::dnn, mas dá erro. A yolov5 até é exportada, mas na hora de rodar a inferência em opencv deu erro. Por outro lado, a yolov5 já distribui um dockerfile que funciona bem, foi mais fácil alterar o código python da inferência.
+Currently, OpenCV for GPU use (DNN module) needs to be compiled manually. For this, it is good to use Docker. We chose to use the DNN module to run YOLO inference in order to eliminate the dependency on Darknet within this Docker. However, YOLOv5 started using PyTorch instead of Darknet. I tried exporting a YOLOv5 model to ONNX to use in OpenCV::DNN, but it resulted in an error. The YOLOv5 model does get exported, but when running inference in OpenCV, an error occurs. On the other hand, YOLOv5 already provides a Dockerfile that works well, making it easier to modify the Python inference code.
 
-Temos o seguinte cenário: quando rodamos a yolov3, dependemos do opencv::dnn, e portanto de uma compilação completa local, na qual vale a pena usar docker. No caso de uso da yolov5, fazemos a inferência direto em pytorch. Portanto, dependemos um pouco do futuro da yolo. No momento, com a saída do Joseph Redmond, o darknet não tem futuro. Usar diretamente o torch parece ser o caminho para não depender do opencv customizado. Ultimamente é mais fácil instalar o torch que compilar o opencv para gpu.
+We have the following scenario: when running YOLOv3, we depend on OpenCV::DNN, and therefore require a complete local compilation, in which case using Docker is worthwhile. In the case of YOLOv5, inference is done directly in PyTorch. Thus, we somewhat depend on the future of YOLO. At the moment, with Joseph Redmond stepping away, Darknet has no future. Using Torch directly seems to be the way to avoid relying on a customized OpenCV. Lately, installing Torch has become easier than compiling OpenCV for GPU.
 
-Além disso tudo, é curiosamente muito, muito trabalhoso manter um docker que alinhe (nvidia driver) -> cuda e cudnn -> tensorflow -> opencv. É mais fácil usar um dos container (docker pull) do datamachines. https://github.com/datamachines/cuda_tensorflow_opencv
+Besides all this, it is surprisingly very, very laborious to maintain a Docker setup that aligns (NVIDIA driver) -> CUDA and cuDNN -> TensorFlow -> OpenCV. It is easier to use one of the containers (docker pull) from Datamachines: https://github.com/datamachines/cuda_tensorflow_opencv
 
-Como compilar opencv do zero com suporte a gpu e módulo dnn
+How to compile OpenCV from scratch with GPU support and DNN module:
 https://www.pyimagesearch.com/2020/02/03/how-to-use-opencvs-dnn-module-with-nvidia-gpus-cuda-and-cudnn/
-
