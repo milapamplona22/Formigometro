@@ -1,45 +1,44 @@
 # LabCog #
-## Repositório com códigos e exemplos para execução de análises estatísticas ##
+## Repository with codes and examples for performing statistical analyses ##
 
-1. Regras
-2. Requerimentos
-3. Uso básico
-
-
-### 1. Regras ###
-1. Manter o branch **master sempre funcional **
-2. Quando for **alterar** algo existente ou **adicionar** algo novo, faça isso num **branch próprio**. Ao certificar-se de que este novo branch está funcionando e em versão final, só então dê merge com o branch master para disponibilizar á todos, e delete o branch que foi criado para o desenvolvimento
-3. arquivos com **exemplos** de análises devem ser nomeados com 'exemplo_' no início
-4. arquivos com **dados** devem ser nomeados com 'dados_' no início
-5. colocar **referências** sobre sites, livros, papers, tanto sobre a explicação da análise quanto sobre o código
-6. se criar um exemplo em jupyter **notebook**, adicionar também o .html exportado
+1. Rules
+2. Requirements
+3. Basic Usage
 
 
+### 1. Rules ###
+1. Keep the **master branch always functional**
+2. When **modifying** something existing or **adding** something new, do so in a **separate branch**. Once you ensure that this new branch is working and in its final version, only then merge it with the master branch to make it available to everyone, and delete the branch that was created for development.
+3. Files with **examples** of analyses should be named with 'example_' at the beginning.
+4. Files with **data** should be named with 'data_' at the beginning.
+5. Provide **references** to websites, books, and papers, both about the explanation of the analysis and the code.
+6. If creating an example in Jupyter **notebook**, also add the exported .html file.
 
-### 2. O quê é necessário? (requerimentos) ###
 
-* instalar [git](https://git-scm.com)
-* dependendo do código que for usar: python, R, Matlab (/Octave)
-* recomendável ter [Jupyter Notebook](http://jupyter.org) para executar os exemplos interativos (.ipynb) (para ter Jupyter precisa de python)
+### 2. What is required? (Requirements) ###
 
-### 3. Uso básico (= fazer uma cópia local)###
-referência simples para usar o git http://rogerdudler.github.io/git-guide/
+* Install [git](https://git-scm.com)
+* Depending on the code you are going to use: Python, R, Matlab (/Octave)
+* It is recommended to have [Jupyter Notebook](http://jupyter.org) to run interactive examples (.ipynb) (Jupyter requires Python)
 
-1. baixe a versão atual do repositório:
-* se for a primeira vez, você ainda precisa clonar (baixar) o repositório:
+### 3. Basic Usage (= creating a local copy)###
+Simple reference for using git: http://rogerdudler.github.io/git-guide/
+
+1. Download the current version of the repository:
+* If this is your first time, you still need to clone (download) the repository:
 ```
 #!git
-     git clone https:\\endereço ali no canto superior direito dessa página (onde está escrito HTTPS)
+     git clone https:\address up there on the top right of this page (where it says HTTPS)
 ```
-* se você já tem o repositório, vá até ele e baixe a versão mais atual
+* If you already have the repository, go to it and download the latest version
 ```
 #!git
      git pull origin master
 ```
- Todas as alterações que você fizer serão somente realizadas na sua máquina.
+ All changes you make will only be applied to your machine.
 
 
-2. Se você quiser jogar suas alterações fora e baixar de novo:
+2. If you want to discard your changes and download it again:
 ```
 #!git
      git fetch --all
